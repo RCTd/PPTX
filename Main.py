@@ -5,6 +5,7 @@ from pptx.util import Pt
 from pptx.enum.text import PP_PARAGRAPH_ALIGNMENT
 from pptx.enum.text import MSO_VERTICAL_ANCHOR
 from pptx.enum.text import MSO_AUTO_SIZE
+from pptx.enum.dml import MSO_FILL
 import aspose.slides as slides
 import os
 from os import listdir
@@ -14,18 +15,18 @@ def main():
     print("type s to save old ppt's and modify in new folder")
     print("type m to modify ppt's")
 
-    mode = "s"
-    # mode=input()
+    # mode = "s"
+    mode=input()
 
     print("exemple:C:\\Users\\Rafael\\Desktop\\cantari ")
     print("source folder: ")
-    mypath=r"C:\Users\Rafael\Desktop\cantari"
-    # mypath = input()
+    # mypath=r"C:\Users\Rafael\Desktop\cantari"
+    mypath = input()
     newpath=""
     if(mode == "s"):
         print("destination folder: ")
-        # newpath=input()
-        newpath=r"C:\Users\Rafael\Desktop\cantari2"
+        newpath=input()
+        # newpath=r"C:\Users\Rafael\Desktop\cantari2"
 
     else:
         if(mode == "m"):
@@ -35,7 +36,7 @@ def main():
     # print(onlyfiles)
     for name in onlyfiles:
         if "ppt" not in name or "lnk" in name:
-            print("removing .. "+name)
+            print("excluding .. "+name)
             onlyfiles.remove(name)
 
     originalfiles=onlyfiles
@@ -76,6 +77,8 @@ def main():
 
                     # print(shape.text_frame.text)
                     shape.left, shape.top = Inches(0.5), Inches(0.5)
+                    #shape.fill.type = MSO_FILL.SOLID
+                    shape.fill.transparency=1
                     # gaseste strofa
                     if(len(shape.text_frame.text)>10):
                         frame=shape.text_frame
@@ -124,4 +127,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
